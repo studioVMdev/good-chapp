@@ -1,39 +1,23 @@
-require("dotenv").config();
-const express = require("express");
-// const path = require("path");
-// const logger = require("./middleware/logger");
-// const studentRouter = require("./routes/students");
-const cors = require("cors");
-
-//  initialize express for use
+const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server); //might need to make more of these to make different chatrooms
 
-// cors
-app.use(cors());
-
-//  routes
-app.get("/", (req, res) => {
-	res.send("<h1>Hello World :) :)</h1>");
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + "/index.html");
 });
 
-// app.get("/", (req, res) => {
-//   res.send(path.join(__dirname, "public", "index.html"));
-// });
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+        console.log('message: ' + msg);
+    })
+    console.log("a user joined") //can update by putting into the chatbox when a user joins.
+})
 
-//  init middleware
-// app.use(logger);
+server.listen(5050, () => {
+    console.log("listening on 5050");
+});
 
-//  body parser
-app.use(express.json());
-
-//  for form submission with post
-// app.use(express.urlencoded({ extended: false }));
-
-//  routes for students
-// app.use("/api/students", studentRouter);
-
-// app.use(express.static(path.join(__dirname, "public")));
-
-const PORT = process.env.PORT || 5500;
-
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));
