@@ -21,6 +21,7 @@
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="./view/loginView.js"></script>
     <script>
         var socket = io();
 
@@ -33,6 +34,7 @@
             if(input.value){
                 socket.emit('chat message', input.value);
                 input.value = '';
+                //add the comment and the timestamp to the id of the person within the room of this id
             }
         });
 
