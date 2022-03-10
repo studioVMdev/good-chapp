@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const Rooms = require("./view/loginView");
-const Chat = require("./view/chatView");
 const cors = require("cors");
 // const RoomsJSON = "./data/db.json"
 // const Rooms = require("./data/db.json");
@@ -13,8 +12,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-app.use("/login", Rooms);
-app.use("/chat", Chat)
+app.use("/", Rooms);
+// app.use("/chat", Chat);
 
 app.get("/", (_req, res) => {
     res.send('Hello World!')
