@@ -1,0 +1,37 @@
+[{
+    "roomid": "id",
+    "alias": "alias",
+    "people": [
+        {
+        "name": "person1",
+        "personid": "personid",
+        "comments": [
+            {
+            "comment": "comment1",
+            "timestamp": "timestamp",
+            "isEdited": false
+        },
+            {
+            "comment": "comment2",
+            "timestamp": "timestamp",
+            "isEdited": false
+        }]
+            },
+        {
+        "name": "person2",
+        "personid": "personid",
+        "comments": [
+                {
+                    "comment": "comment1",
+                    "timestamp": "timestamp",
+                    "isEdited": false
+            },
+                {
+                    "comment": "comment2",
+                    "timestamp": "timestamp",
+                    "isEdited": false
+            }
+            ]
+        }
+    ]
+}]
