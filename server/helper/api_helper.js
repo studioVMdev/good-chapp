@@ -27,7 +27,6 @@ const createNew = (path, data) => {
   // console.log(readList.people);
   console.log(newItem);
   readList.people.push(newItem);
-  console.log("It worked " + readList)
   writeData(path, readList);
   return readList;
 };
