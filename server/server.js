@@ -12,7 +12,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-app.use("/", Rooms);
+app.use("/login", Rooms);
 
 app.get("/", (_req, res) => {
     res.send('Hello World!')
