@@ -5,10 +5,10 @@ const Chat = require("./view/chatView")
 const cors = require("cors");
 // const RoomsJSON = "./data/db.json"
 // const Rooms = require("./data/db.json");
-// const http = require('http');
-// const server = http.createServer(app);
-// const { Server } = require('socket.io');
-// const io = new Server(server); //might need to make more of these to make different chatrooms
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server); //might need to make more of these to make different chatrooms
 
 app.use(express.json());
 app.use(cors());
@@ -24,19 +24,21 @@ app.listen(5050, () => {
     console.log(`App listening on port 5050`);
 })
 
-// app.get('/', (req, res) => {
-//     res.sendFile(__dirname + "/index.html");
-// });
+const users = {};
 
-// io.on('connection', (socket) => {
-//     socket.on('chat message', (msg) => {
-//         io.emit('chat message', msg);
-
-//         console.log('message: ' + msg);
-//     })
-//     console.log("a user joined") //can update by putting into the chatbox when a user joins.
-// })
-
-// server.listen(5050, () => {
-//     console.log("listening on 5050");
-// });
+io.on("connection", (socket) => {
+  socket.on("new-user", (name) => {
+    users[socket.id] = name;
+    socket.broadcast.emit("user-connected", name);
+  });
+  socket.on("send-chat-message", (message) => {
+    socket.broadcast.emit("chat-message", {
+      message: message,
+      name: users[socket.id],
+    });
+  });
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("user-disconnected", users[socket.id]);
+    delete users[socket.id];
+  });
+});

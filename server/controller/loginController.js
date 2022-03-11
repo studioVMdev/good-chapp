@@ -12,6 +12,7 @@ const createUser = (req, res) => {
     //variable that is req.body, with each value lowercase.
     name.userNameFirst = name.userNameFirst.toLowerCase();
     name.userNameLast = name.userNameLast.toLowerCase();
+    name["comments"] = [];
     const newUser = Model.makeUser(name, key);
     res.status(201).json(newUser);
 };
