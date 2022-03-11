@@ -23,7 +23,7 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
 		history.push("/chat");
 
 		const response = await axios.post(
-			`${process.env.REACT_APP_BACKEND_URL}/`,
+			`${process.env.REACT_APP_BACKEND_URL}/login`,
 			{
 				userNameFirst: userNameFirst,
 				userNameLast: userNameLast,
@@ -33,7 +33,7 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
 		console.log(response);
 		if (response.status === 201) {
 			//! TODO: hookup server
-			// setLS(response.data.id);
+			setLS(response.data.personid);
 			history.push("/chat");
 			//TODO: Add toastify?!?!?!
 			//TODO: ADD setimeout
