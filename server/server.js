@@ -3,12 +3,12 @@ const app = express();
 const Rooms = require("./view/loginView");
 const Chat = require("./view/chatView")
 const cors = require("cors");
-// const RoomsJSON = "./data/db.json"
-// const Rooms = require("./data/db.json");
-// const http = require('http');
-// const server = http.createServer(app);
-// const { Server } = require('socket.io');
-// const io = new Server(server); //might need to make more of these to make different chatrooms
+const RoomsJSON = "./data/db.json"
+const Rooms = require("./data/db.json");
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server); //might need to make more of these to make different chatrooms
 
 app.use(express.json());
 app.use(cors());
