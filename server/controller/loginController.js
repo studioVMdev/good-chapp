@@ -7,10 +7,13 @@ const getAllRooms = (_req, res) => {
 };
 
 const createUser = (req, res) => {
-    console.log("got to controller");
-    const newUser = Model.makeUser(req.body);
+    key = "personid";
+    let name = req.body;
+    //variable that is req.body, with each value lowercase.
+    name.userNameFirst = name.userNameFirst.toLowerCase();
+    name.userNameLast = name.userNameLast.toLowerCase();
+    const newUser = Model.makeUser(name, key);
     res.status(201).json(newUser);
-    console.log("postman been posted");
 };
 
 module.exports = {

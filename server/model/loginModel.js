@@ -11,10 +11,19 @@ const getAllData = () => {
 
 //getRooms
 
-const makeUser = (name) => {
-    console.log("got to model")
-    let newFile = helper.createNew(pathToroomsJSONfile, name);
+const makeUser = (name, key) => {
+  let database = helper.readData(pathToroomsJSONfile);
+  let people = database.people;
+  console.log(name["userNameFirst"]);
+  console.log(people[0]["userNameFirst"]);
+  let finder = people.find((person) => person["userNameFirst"] == name["userNameFirst"] && person["userNameLast"] == name["userNameLast"]);
+  console.log("we have found ", finder);
+  if (finder !== undefined) {
+    return finder;
+  } else {
+    let newFile = helper.createNew(pathToroomsJSONfile, name, key);
     return newFile;
+  }
 }
 module.exports = {
   getAllData,

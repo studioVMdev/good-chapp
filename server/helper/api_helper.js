@@ -18,17 +18,19 @@ const newID = () => {
     return uniqid();
 }
 
-const createNew = (path, data) => {
+const createNew = (path, data, key) => {
   const readList = readData(path);
+  let idobj = {};
+  idobj[key] = newID();
   const newItem = {
-    id: newID(),
+    ...idobj,
     ...data,
   };
   // console.log(readList.people);
   console.log(newItem);
   readList.people.push(newItem);
   writeData(path, readList);
-  return readList;
+  return newItem;
 };
 
 const getDataById = (arr, id) => {
@@ -37,11 +39,12 @@ const getDataById = (arr, id) => {
   return currData;
 };
 
-const updateDataById = (id, arr, updateValues) => {
-    const updatedData = arr.map((chunk) => {
-        arr.id === id ? {...chunk, ...updateValues} : student
+const updateDataById = (id, path, updateValues) => {
+    const dataSet = readData(path);
+    const updatedData = dataSet.map((chunk) => {
+        path.id === id ? {...chunk, ...updateValues} : student
     })
-    writeData(arr, updatedData)
+    writeData(path, updatedData)
     return updatedData;
 }
 
