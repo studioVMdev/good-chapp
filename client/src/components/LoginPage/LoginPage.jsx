@@ -5,18 +5,22 @@ import { getLS, setLS } from "../../utils/localStorage";
 
 // import { v4 as uuidv4 } from "uuid";
 
-const LoginPage = () => {
+const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
 	const [userNameFirst, setUserNameFirst] = useState(null);
-  const [userNameLast, setUserNameLast] = useState(null);
-  
-  useEffect(() => {
-    getLS() !== null console.log("not empty");
-  },[])
+	const [userNameLast, setUserNameLast] = useState(null);
+
+	useEffect(() => {
+		getLS() !== null && console.log("not empty");
+	}, [isLoggedIn]);
 
 	let history = useHistory();
 
 	const loginUser = async () => {
 		console.log("loggin in");
+		setLS("test");
+
+		// setLS(userNameFirst);
+		history.push("/chat");
 
 		const response = await axios.post(
 			`${process.env.REACT_APP_BACKEND_URL}/`,
@@ -25,10 +29,11 @@ const LoginPage = () => {
 				userNameLast: userNameLast,
 			}
 		);
+
 		console.log(response);
 		if (response.status === 201) {
 			//! TODO: hookup server
-			setLS(response.data.id);
+			// setLS(response.data.id);
 			history.push("/chat");
 			//TODO: Add toastify?!?!?!
 			//TODO: ADD setimeout
@@ -38,6 +43,8 @@ const LoginPage = () => {
 	const handleLogin = (e) => {
 		e.preventDefault();
 		userNameFirst && userNameLast && loginUser();
+		e.target.reset();
+		setIsLoggedIn(true);
 	};
 
 	const handleChange = (e) => {
@@ -49,13 +56,13 @@ const LoginPage = () => {
 	return (
 		<>
 			<div>LoginPage</div>
-			<form>
+			<form onSubmit={handleLogin}>
 				<label htmlFor="userNameFirst">Enter Your First Name</label>
 				<input type="text" name="userNameFirst" onChange={handleChange} />
 				<label htmlFor="userNameLast">Enter Your Last Name</label>
 				<input type="text" name="userNameLast" onChange={handleChange} />
 
-				<button onClick={handleLogin}>Login</button>
+				<button type="submit">Login</button>
 			</form>
 		</>
 	);

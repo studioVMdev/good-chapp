@@ -1,9 +1,12 @@
 const getLS = () => {
-	const user = JSON.parse(localStorage.getItem("good-chapp-user"));
-	return user;
+	console.log("getting");
+	const user = localStorage.getItem("good-chapp-user");
+	return user ?? JSON.parse(user);
 };
 
 const setLS = (userId) => {
+	console.log("setting");
+	localStorage.setItem("test", "test");
 	localStorage.setItem("good-chapp-user", JSON.stringify(userId));
 };
 
